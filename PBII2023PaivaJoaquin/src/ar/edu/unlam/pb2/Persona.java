@@ -3,13 +3,15 @@ package ar.edu.unlam.pb2;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Persona {
+public abstract class Persona implements Comparable<Persona> {
 	private String nombre;
-	private Set<Medio> medios;
+	private String identificador;
 	
-	public Persona(String nombre) {
+	public Persona(String nombre, String identificador) {
 		super();
-		this.medios = new HashSet<>();
+		this.nombre = nombre;
+		this.identificador = identificador;
+	
 	}
 
 	public String getNombre() {
@@ -19,27 +21,17 @@ public abstract class Persona {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public Set<Medio> getMedios() {
-		return medios;
-	}
 	
-	public Double getTarjetaDebitoMonto() {
-		for(Medio medio : medios) {
-			if(medio instanceof TarjetaDebito) {
-				medio = (TarjetaDebito) medio;
-				return medio.mostrarSaldo();
-			}
-		}
-		return null;
-		
+    public String getIdentificador() {
+		return identificador;
 	}
 
-	public void setMedios(Set<Medio> medios) {
-		this.medios = medios;
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
 	}
-	
-	public void agregarMedio(Medio medio) {
-		medios.add(medio);
-	}
+
+	@Override
+    public int compareTo(Persona otraPersona) {
+        return this.identificador.compareTo(otraPersona.getIdentificador());
+    }
 }
